@@ -148,7 +148,7 @@ int main(void)
                 printf("Player #%d is SAFE!\n", i);
                 printf("Player #%d does not loss money!\n");
             }
-            else if ()
+            else
             {
                 printf("Player #%d is SAFE!\n", i);
             }
