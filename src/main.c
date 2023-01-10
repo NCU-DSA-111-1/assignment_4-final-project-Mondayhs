@@ -90,11 +90,12 @@ int main(void)
     printf("Please specify how many players for this Poker-21: ");
     scanf("%d", &player_n);
 
-    printf("\n========================================================\n");
-    printf("|\t Welcome to the Poker-21 game!\t\t\t|\n");
-    printf("| You have used %d-set Poker cards.\t\t\t|\n", n);
-    printf("| There are %d players.\t\t\t\t\t|\n", player_n);
-    printf("========================================================\n\n");
+    printf("\n=========================================================================\n");
+    printf("|\t\t\t Welcome to the Poker-21 game!\t\t\t|\n");
+    printf("|\t\t\t\t\t\t\t\t\t|\n");
+    printf("| You have used %d-set Poker cards.\t\t\t\t\t|\n", n);
+    printf("| There are %d players.\t\t\t\t\t\t\t|\n", player_n);
+    printf("=========================================================================\n\n");
 
     Card *deck = malloc(52 * n * sizeof(Card));
     Poker21 *player = malloc((player_n + 1) * sizeof(Poker21));
