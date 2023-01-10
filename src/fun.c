@@ -126,3 +126,7 @@ void show_player(Poker21 *one, int p)
     printf("\n\n");
     return;
 }
+
+
+
+
