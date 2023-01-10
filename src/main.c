@@ -1,101 +1,78 @@
-#include <stdio.h>
+// #include <stdio.h>
 
-int buy_fruit(money)
-{
+// int buy_fruit(money)
+// {
 
-    int amount;
-    printf("How many do you want to buy?");
-    scanf("%d", &amount);
+//     int amount;
+//     printf("How many do you want to buy?");
+//     scanf("%d", &amount);
 
-    // if (amount < 0)
-    // {
-    //     printf("You can't buy negative amount of fruits!\n");
-    //     return money;
-    // }
+//     // if (amount < 0)
+//     // {
+//     //     printf("You can't buy negative amount of fruits!\n");
+//     //     return money;
+//     // }
 
-    if (money < 100 * amount)
-    {
-        printf("You don't have enough money to buy fruit\n");
-        return money;
-    }
+//     if (money < 100 * amount)
+//     {
+//         printf("You don't have enough money to buy fruit\n");
+//         return money;
+//     }
 
-    return money - 100 * amount;
-}
+//     return money - 100 * amount;
+// }
 
-int buy_json(money)
-{
-    if (money < 100000000)
-    {
-        printf("You don't have enough money to buy json\n");
-        return money;
-    }
+// int buy_json(money)
+// {
+//     if (money < 100000000)
+//     {
+//         printf("You don't have enough money to buy json\n");
+//         return money;
+//     }
 
-    printf("Yah you have bought json!\n");
-    return money - 100000000;
-}
+//     printf("Yah you have bought json!\n");
+//     return money - 100000000;
+// }
 
-int main()
-{
+// int main()
+// {
 
-    int money = 1000;
-    int operation = 0;
-    int leave = 0;
+//     int money = 1000;
+//     int operation = 0;
+//     int leave = 0;
 
-    while (!leave)
-    {
-        printf("You have %d dollars\n", money);
-        printf("Enter your operation:\n");
-        printf("1: Buy Fruit (100 dollars)\n");
-        printf("2: Buy 郭哲文 (100000000 dollars)\n");
-        printf("0: Leave\n");
-        scanf("%d", &operation);
+//     while (!leave)
+//     {
+//         printf("You have %d dollars\n", money);
+//         printf("Enter your operation:\n");
+//         printf("1: Buy Fruit (100 dollars)\n");
+//         printf("2: Buy 郭哲文 (100000000 dollars)\n");
+//         printf("0: Leave\n");
+//         scanf("%d", &operation);
 
-        switch (operation)
-        {
-        case 1:
-            money = buy_fruit(money);
-            break;
-        case 2:
-            money = buy_json(money);
-            break;
-        case 0:
-            leave = 1;
-            break;
-        default:
-            break;
-        }
-    }
-}
+//         switch (operation)
+//         {
+//         case 1:
+//             money = buy_fruit(money);
+//             break;
+//         case 2:
+//             money = buy_json(money);
+//             break;
+//         case 0:
+//             leave = 1;
+//             break;
+//         default:
+//             break;
+//         }
+//     }
+// }
 
 // hw7: poker-21 game
 // - Specify how many set of Poker to be used/played
 // - Specify how many players
 // - Show out result of game
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-
-struct card
-{
-    char *face;
-    char *suit;
-};
-typedef struct card Card;
-
-struct poker21
-{
-    int card_n; // Card number
-    int sum;    // Total cards' credit
-    Card sub[6];
-};
-typedef struct poker21 Poker21;
-
-void fillDeck_n(Card *, char *[], char *[], int);
-void shuffle_n(Card *, int);
-void deal_Poker21(Card *, Poker21 *, int, int, int);
-void show_player(Poker21 *, int);
+#include "poker.h"
 
 char *FACE[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K"};
 char *SUIT[] = {"H", "D", "C", "S"};
