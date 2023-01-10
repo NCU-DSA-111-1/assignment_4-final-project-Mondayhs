@@ -137,6 +137,13 @@ int main(void)
             deal_begin++;
 
             show_player(&player[i], i);
+
+            if (*(&player[i].sum) > 21)
+            {
+                printf("Player#%d's point total exceeds 21 points! \n",i);
+                break;
+            }
+            
             printf("Player %d, do you like to add another card (Y/N): ", i);
             scanf(" %c", &YN);
         }
