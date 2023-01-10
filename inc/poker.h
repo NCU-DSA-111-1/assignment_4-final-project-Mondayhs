@@ -16,6 +16,7 @@ struct poker21
 {
     int card_n; // Card number
     int sum;    // Total cards' credit
+    int money; // player's money
     Card sub[6];
 };
 typedef struct poker21 Poker21;
