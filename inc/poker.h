@@ -6,8 +6,7 @@
 #include <string.h>
 #include <time.h>
 
-struct card
-{
+struct card{
     char *face;
     char *suit;
 };
