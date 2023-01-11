@@ -8,7 +8,9 @@ static char *FACE[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q
 static char *SUIT[] = {"H", "D", "C", "S"};
 
 void print_rule(void){
+
     printf("\n\033[37m============================================================================================================\033[0m\n");
+    printf("|\t\t\t Welcome to the Poker-21 game!\t\t\t|\n");
     printf("\033[37m|\033[0m     21點是一種經典的撲克牌遊戲，每局的目的是讓手中的牌點數加起來等於或接近21點，但不能超過21點。         \033[37m|\033[0m\n");
     printf("\033[37m|\033[0m     遊戲開始後，玩家先行動，可以選擇要牌或停牌。若玩家選擇要牌，莊家就會從牌堆中給玩家一張牌             \033[37m|\033[0m\n");
     printf("\033[37m|\033[0m     ，玩家的牌點數會隨之增加。玩家可以一直要牌直到他們的牌點數等於或超過21點，此時玩家爆牌了，失去本局。 \033[37m|\033[0m\n");
@@ -20,19 +22,17 @@ void print_rule(void){
 void print_station(int n, int player_t, int over21, int under21){
 
     printf("\n=========================================================================\n");
-    printf("|\t\t\t Welcome to the Poker-21 game!\t\t\t|\n");
+    printf("|\t\t\t\t \033[34m Information\033[0m \t\t\t\t|\n");
     printf("|\t\t\t\t\t\t\t\t\t|\n");
     printf("| You have used %d-set Poker cards.\t\t\t\t\t|\n", n);
     printf("| There are %d players.\t\t\t\t\t\t\t|\n", player_t);
-    // printf("=========================================================================\n\n");
-
-    // printf("=========================================================================\n\n");
-    printf("|\t\t\t \t\t\t|\n");
     printf("| Betting odds under 21 is %d.\t\t\t\t\t\t\t|\n", under21);
     printf("| Betting odds over 21 is %d.\t\t\t\t\t\t\t|\n", over21);
     printf("=========================================================================\n\n");
-}
+    // printf("=========================================================================\n");
 
+    // printf("=========================================================================\n");
+}
 int main(void){
 
     int n=0;        // # of card sets
@@ -45,50 +45,55 @@ int main(void){
     
 
     // 1. Initialization
-    printf("Please specify how many players for this Poker-21: ");
+    printf("\t\t\033[43;30m Now we need to know some information \033[0m\n");
+    printf("\tPlease specify how many players for this Poker-21: \t");
     scanf("%d", &player_n);
     Card *deck = malloc(52 * n * sizeof(Card));
     Poker21 *player = malloc((player_n + 1) * sizeof(Poker21));
     while(restart)
     {
-        printf("Please specify how may set of cards to play: ");
+        printf("\tPlease specify how may set of cards to play: \t");
         scanf("%d", &n);
 
-        printf("Please enter the betting odds under 21: ");
+        printf("\tPlease enter the betting odds under 21: \t");
         scanf("%d", &betting_odds_under21);
 
-        printf("Please enter the betting odds over 21: ");
+        printf("\tPlease enter the betting odds over 21: \t");
         scanf("%d", &betting_odds_over21);
-
-        
-
+        print_station(n, player_n, betting_odds_over21, betting_odds_under21);
+        // wallet money
+        printf("\t\t\t\t\033[34m Wallet \033[0m\n");
         if (flag == 1){
-            for (int i = 0; i < player_n; i++){
-                printf("Player %d,please enter how many money do you have: ",i);
+            
+            for (int i = 0; i < player_n+1; i++){
+                printf("\tPlayer %d,please enter how many money do you have: ",i);
                 scanf("%d", &(player[i].purse));
             }
             flag = 0;
         }
-        print_station(n, player_n, betting_odds_over21, betting_odds_under21);
-
-        
-
-
+        else if (flag == 0){
+            for (int i = 0; i < player_n+1; i++){
+                printf("\tPlayer %d,now your wallet have money : $%d \n", i, player[i].purse);
+            }
+        }
+        printf("=========================================================================\n");
+        // bet money
+        printf("\t\t\t\t\033[34m Lay A Bet \033[0m\n");
         for (int i = 0; i <= player_n; i++)
         {
             player[i].card_n = 0;
             player[i].sum = 0;
-            printf("Player #%d, Please enter how much money you want to bet: ",i);
+            printf("\tPlayer #%d, Please enter how much money you want to bet: ",i);
             scanf("%d", &(player[i].stake));
         }
-
         // 2. Fill n-set of Poker cards & shuffle cards.
         srand(time(NULL));
         fillDeck_n(deck, FACE, SUIT, n);
         shuffle_n(deck, n);
 
         // 3. Deal 1st-round cards (2 cards for the Banker & eacher Player)
-        printf("======================== 1st ROUND =====================\n");
+        printf("\n\n\t\t\t\033[34m Now Beginning!! \n\n\033[0m");
+        printf("\033[32m======================== 1st ROUND =====================\033[0m\n");
         int deal_begin = 0;
 
         for (int i = 0; i <= player_n; i++)
@@ -100,7 +105,7 @@ int main(void){
 
         // 4. Deal 2nd-round cards for each player
         char YN;
-        printf("======================== 2nd ROUND =====================\n");
+        printf("\033[32m======================== 2nd ROUND =====================\033[0m\n");
         for (int i = 1; i <= player_n; i++)
         {
             show_player(&player[i], i);
@@ -138,46 +143,47 @@ int main(void){
         // 6. Get the result of the game
         for (int i = 1; i <= player_n; i++)
         {
-            //玩家和莊家的點數小於21點且玩家點數大於莊家，或是玩家和莊家的點數小於21點且莊家點數大於21點，玩家即獲勝且贏錢。
-            if ((player[i].sum > player[0].sum & player[i].sum <= 21) | (player[i].sum <= 21 & player[0].sum > 21))
+            //玩家和莊家的點數小於21點，且玩家點數大於莊家或是莊家點數大於21點，玩家即獲勝且贏錢。
+            // if ((player[i].sum > player[0].sum & player[i].sum <= 21) | (player[i].sum <= 21 & player[0].sum > 21))
+            if ((player[i].sum <= 21) & (player[0].sum > 21 | player[i].sum > player[0].sum) )
             {
                 printf("Player #%d WON!\n", i);
-                printf("Player #%d earns %d!\n", i, player[i].stake*betting_odds_under21);
+                printf("Player #%d earns money: $%d!\n", i, player[i].stake*betting_odds_under21);
             }
             //玩家點數等於莊家點數，平手以及賠錢        
-            else if (player[i].sum == player[0].sum)
-            {
-                printf("Player #%d is SAFE!\n", i);
-                printf("Player #%d losses %d!\n", i, player[i].stake*betting_odds_under21);
+            else if (player[i].sum == player[0].sum )
+            {   
+                printf("Player #%d is SAME with Player #0!\n", i);
+                printf("Player #%d is LOSS!\n", i);
+                printf("Player #%d losses money: $%d!\n", i, player[i].stake*betting_odds_under21);
             }
-            //玩家點數大於21點且莊家點數，平手以及賠錢
-            else if (player[i].sum > 21 & player[0].sum < 21)
+            //玩家點數大於21點且莊家點數小於21點，或玩家點數小於莊家點數，輸以及賠錢
+            else if ((player[i].sum > 21 & player[0].sum < 21) | (player[i].sum < player[0].sum))
             {
                 printf("Player #%d is LOSS!\n", i);
-                printf("Player #%d losses %d!\n", i, player[i].stake*betting_odds_under21);
+                printf("Player #%d losses money: $%d !\n", i, player[i].stake*betting_odds_under21);
             }
-            //玩家點數等於莊家點數，平手以及賠錢
-            else if (player[i].sum > 21 & player[0].sum > 21)
-            {
-                printf("Player #%d is SAFE!\n", i);
-                printf("Player #%d does not loss money!\n",i);
-            }
-            
+            // //玩家點數小於莊家點數，以
+            // else if (player[i].sum < player[0].sum )
+            // {
+            //     printf("Player #%d is SAFE!\n", i);
+            //     printf("Player #%d does not loss money!\n",i);
+            // }
             else
             {
                 printf("Something Wrong!!!");
             }
             
-            
         }
-        
-        // 7. Restart
-        
+        // 7. print there wallet
+        // for (int i = 0; i < player_n+1; i++){
+        //     printf("Player %d,your wallet have money : $%d ",i,player[i].purse);
+            
+        // }
+        // 8. Restart
         printf("請問要再來一局嗎:(Y/N)");
         scanf(" %c", &YN);
-        while (YN == 'n' | YN == 'N')
-        {
-            
+        while (YN == 'n' | YN == 'N'){
             restart = 0;
             exit(1);
         }
