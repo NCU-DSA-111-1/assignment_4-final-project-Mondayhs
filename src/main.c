@@ -166,12 +166,6 @@ int main(void){
                 // printf("Player #%d losses money: $%d !\n", i, player[i].stake*betting_odds_under21);
                 player[i].purse = player[i].purse - player[i].stake*betting_odds_under21;
             }
-            // //玩家點數小於莊家點數
-            // else if (player[i].sum < player[0].sum )
-            // {
-            //     printf("Player #%d is SAFE!\n", i);
-            //     printf("Player #%d does not loss money!\n",i);
-            // }
             else
             {
                 printf("Something Wrong!!!");
