@@ -10,7 +10,7 @@ static char *SUIT[] = {"H", "D", "C", "S"};
 void print_rule(void){
 
     printf("\n\033[37m============================================================================================================\033[0m\n");
-    printf("|\t\t\t Welcome to the Poker-21 game!\t\t\t|\n");
+    printf("\033[37m|\033[0m\t\t\t\t \033[34m Welcome to the Poker-21 game! \033[0m\t\t\t\t\t\033[37m   |\033[0m\n");
     printf("\033[37m|\033[0m     21點是一種經典的撲克牌遊戲，每局的目的是讓手中的牌點數加起來等於或接近21點，但不能超過21點。         \033[37m|\033[0m\n");
     printf("\033[37m|\033[0m     遊戲開始後，玩家先行動，可以選擇要牌或停牌。若玩家選擇要牌，莊家就會從牌堆中給玩家一張牌             \033[37m|\033[0m\n");
     printf("\033[37m|\033[0m     ，玩家的牌點數會隨之增加。玩家可以一直要牌直到他們的牌點數等於或超過21點，此時玩家爆牌了，失去本局。 \033[37m|\033[0m\n");
@@ -26,8 +26,8 @@ void print_station(int n, int player_t, int over21, int under21){
     printf("|\t\t\t\t\t\t\t\t\t|\n");
     printf("| You have used %d-set Poker cards.\t\t\t\t\t|\n", n);
     printf("| There are %d players.\t\t\t\t\t\t\t|\n", player_t);
-    printf("| Betting odds under 21 is %d.\t\t\t\t\t\t\t|\n", under21);
-    printf("| Betting odds over 21 is %d.\t\t\t\t\t\t\t|\n", over21);
+    printf("| Betting odds under 21 is %d.\t\t\t\t\t\t|\n", under21);
+    printf("| Betting odds over 21 is %d.\t\t\t\t\t\t|\n", over21);
     printf("=========================================================================\n\n");
     // printf("=========================================================================\n");
 
@@ -86,6 +86,7 @@ int main(void){
             printf("\tPlayer #%d, Please enter how much money you want to bet: ",i);
             scanf("%d", &(player[i].stake));
         }
+
         // 2. Fill n-set of Poker cards & shuffle cards.
         srand(time(NULL));
         fillDeck_n(deck, FACE, SUIT, n);
@@ -95,7 +96,6 @@ int main(void){
         printf("\n\n\t\t\t\033[34m Now Beginning!! \n\n\033[0m");
         printf("\033[32m======================== 1st ROUND =====================\033[0m\n");
         int deal_begin = 0;
-
         for (int i = 0; i <= player_n; i++)
         {
             deal_Poker21(deck, &player[i], n, deal_begin, 2);
@@ -111,7 +111,6 @@ int main(void){
             show_player(&player[i], i);
             printf("Player %d, do you like to add another card (Y/N): ", i);
             scanf(" %c", &YN);
-
             while (YN == 'Y' | YN == 'y')
             {
                 deal_Poker21(deck, &player[i], n, deal_begin, 1);
@@ -175,16 +174,15 @@ int main(void){
             }
             
         }
-        // 7. print there wallet
-        // for (int i = 0; i < player_n+1; i++){
-        //     printf("Player %d,your wallet have money : $%d ",i,player[i].purse);
-            
-        // }
-        // 8. Restart
+        // 7. Restart
         printf("請問要再來一局嗎:(Y/N)");
         scanf(" %c", &YN);
         while (YN == 'n' | YN == 'N'){
             restart = 0;
+            printf("Game Over!!!");
+            for (int i = 0; i < player_n+1; i++){
+                printf("\tPlayer %d,now your wallet have money : $%d \n", i, player[i].purse);
+            }
             exit(1);
         }
     }
