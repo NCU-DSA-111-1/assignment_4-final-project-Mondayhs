@@ -180,13 +180,15 @@ int main(void){
         while (YN == 'n' | YN == 'N'){
             restart = 0;
             printf("Game Over!!!\n");
-            
+
             for (int i = 0; i < player_n+1; i++){
                 printf("\tPlayer %d,now your wallet have money : $%d \n", i, player[i].purse);
             }
             exit(1);
         }
     }
+    // free memory
+    free(deck);
     return 0;
 }
     
