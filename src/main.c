@@ -48,12 +48,13 @@ int main(void){
     printf("\t\t\033[43;30m Now we need to know some information \033[0m\n");
     printf("\tPlease specify how many players for this Poker-21: \t");
     scanf("%d", &player_n);
-    Card *deck = malloc(52 * n * sizeof(Card));
     Poker21 *player = malloc((player_n + 1) * sizeof(Poker21));
     while(restart)
     {
         printf("\tPlease specify how may set of cards to play: \t");
         scanf("%d", &n);
+        Card *deck = malloc(52 * n * sizeof(Card));
+
 
         printf("\tPlease enter the betting odds under 21: \t");
         scanf("%d", &betting_odds_under21);
@@ -188,7 +189,7 @@ int main(void){
         }
     }
     // free memory
-    free(deck);
+    // free(deck);
     return 0;
 }
 
