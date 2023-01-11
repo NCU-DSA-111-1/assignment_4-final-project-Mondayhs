@@ -24,30 +24,31 @@ void print_station(int n, int player_t, int over21, int under21){
     printf("|\t\t\t\t\t\t\t\t\t|\n");
     printf("| You have used %d-set Poker cards.\t\t\t\t\t|\n", n);
     printf("| There are %d players.\t\t\t\t\t\t\t|\n", player_t);
-    printf("=========================================================================\n\n");
+    // printf("=========================================================================\n\n");
 
-    printf("=========================================================================\n\n");
+    // printf("=========================================================================\n\n");
     printf("|\t\t\t \t\t\t|\n");
     printf("| Betting odds under 21 is %d.\t\t\t\t\t\t\t|\n", under21);
     printf("| Betting odds over 21 is %d.\t\t\t\t\t\t\t|\n", over21);
     printf("=========================================================================\n\n");
 }
 
-int main(void)
-{
+int main(void){
 
-    int n;        // # of card sets
+    int n=0;        // # of card sets
     int player_n; // # of players
     bool restart = 1;
     int flag = 1; 
     int betting_odds_over21, betting_odds_under21; // betting ratio
     print_rule();
-    
-    // 1. Initialization
+
     
 
+    // 1. Initialization
     printf("Please specify how many players for this Poker-21: ");
     scanf("%d", &player_n);
+    Card *deck = malloc(52 * n * sizeof(Card));
+    Poker21 *player = malloc((player_n + 1) * sizeof(Poker21));
     while(restart)
     {
         printf("Please specify how may set of cards to play: ");
@@ -58,23 +59,27 @@ int main(void)
 
         printf("Please enter the betting odds over 21: ");
         scanf("%d", &betting_odds_over21);
+
+        
+
         if (flag == 1){
-            printf("Please enter how many money do you have: ");
-            scanf(%d, &purse);
+            for (int i = 0; i < player_n; i++){
+                printf("Player %d,please enter how many money do you have: ",i);
+                scanf("%d", &(player[i].purse));
+            }
             flag = 0;
         }
-
         print_station(n, player_n, betting_odds_over21, betting_odds_under21);
 
-        Card *deck = malloc(52 * n * sizeof(Card));
-        Poker21 *player = malloc((player_n + 1) * sizeof(Poker21));
+        
+
 
         for (int i = 0; i <= player_n; i++)
         {
             player[i].card_n = 0;
             player[i].sum = 0;
             printf("Player #%d, Please enter how much money you want to bet: ",i);
-            scanf("%d", &(player[i].money));
+            scanf("%d", &(player[i].stake));
         }
 
         // 2. Fill n-set of Poker cards & shuffle cards.
@@ -133,31 +138,41 @@ int main(void)
         // 6. Get the result of the game
         for (int i = 1; i <= player_n; i++)
         {
+            //玩家和莊家的點數小於21點且玩家點數大於莊家，或是玩家和莊家的點數小於21點且莊家點數大於21點，玩家即獲勝且贏錢。
             if ((player[i].sum > player[0].sum & player[i].sum <= 21) | (player[i].sum <= 21 & player[0].sum > 21))
             {
                 printf("Player #%d WON!\n", i);
-                printf("Player #%d earns %d!\n", i, player[i].money*betting_odds_under21);
+                printf("Player #%d earns %d!\n", i, player[i].stake*betting_odds_under21);
             }
+            //玩家點數等於莊家點數，平手以及賠錢        
             else if (player[i].sum == player[0].sum)
             {
                 printf("Player #%d is SAFE!\n", i);
-                printf("Player #%d losses %d!\n", i, player[i].money*betting_odds_under21);
+                printf("Player #%d losses %d!\n", i, player[i].stake*betting_odds_under21);
             }
+            //玩家點數大於21點且莊家點數，平手以及賠錢
+            else if (player[i].sum > 21 & player[0].sum < 21)
+            {
+                printf("Player #%d is LOSS!\n", i);
+                printf("Player #%d losses %d!\n", i, player[i].stake*betting_odds_under21);
+            }
+            //玩家點數等於莊家點數，平手以及賠錢
             else if (player[i].sum > 21 & player[0].sum > 21)
             {
                 printf("Player #%d is SAFE!\n", i);
-                printf("Player #%d does not loss money!\n");
+                printf("Player #%d does not loss money!\n",i);
             }
+            
             else
             {
-                printf("Player #%d is SAFE!\n", i);
+                printf("Something Wrong!!!");
             }
             
             
         }
         
         // 7. Restart
-        char YN;
+        
         printf("請問要再來一局嗎:(Y/N)");
         scanf(" %c", &YN);
         while (YN == 'n' | YN == 'N')
@@ -166,11 +181,12 @@ int main(void)
             restart = 0;
             exit(1);
         }
-        
     }
+    return 0;
+}
     
         //free memory
         // free(deck);
 
-    return 0;
-}
+
+
