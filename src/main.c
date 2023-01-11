@@ -187,9 +187,9 @@ int main(void){
             }
             exit(1);
         }
+        // free memory
+        free(deck);
     }
-    // free memory
-    // free(deck);
     return 0;
 }
 
