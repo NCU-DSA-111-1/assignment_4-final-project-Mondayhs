@@ -147,27 +147,26 @@ int main(void){
             // if ((player[i].sum > player[0].sum & player[i].sum <= 21) | (player[i].sum <= 21 & player[0].sum > 21))
             if ((player[i].sum <= 21) & (player[0].sum > 21 | player[i].sum > player[0].sum) )
             {
-                printf("Player #%d WON!\n", i);
-                printf("Player #%d earns money: $%d!\n", i, player[i].stake*betting_odds_under21);
+                printf("Player #%d WON! Player #%d earns money: $%d !\n", i, i, player[i].stake*betting_odds_under21);
+                // printf("Player #%d earns money: $%d!\n", i, player[i].stake*betting_odds_under21);
                 player[i].purse = player[i].purse + player[i].stake*betting_odds_under21;
             }
             //玩家點數等於莊家點數，平手以及賠錢        
             else if (player[i].sum == player[0].sum )
             {   
-                printf("Player #%d is SAME with Player #0!\n", i);
-                printf("Player #%d is LOSS!\n", i);
-                printf("Player #%d losses money: $%d!\n", i, player[i].stake*betting_odds_under21);
+                printf("Player #%d is SAME with Player #0! Player #%d losses money: $%d !\n", i,i ,player[i].stake*betting_odds_under21);
+                // printf("Player #%d losses money: $%d!\n", i, player[i].stake*betting_odds_under21);
                 player[i].purse = player[i].purse - player[i].stake*betting_odds_under21;
 
             }
             //玩家點數大於21點且莊家點數小於21點，或玩家點數小於莊家點數，輸以及賠錢
             else if ((player[i].sum > 21 & player[0].sum < 21) | (player[i].sum < player[0].sum))
             {
-                printf("Player #%d is LOSS!\n", i);
-                printf("Player #%d losses money: $%d !\n", i, player[i].stake*betting_odds_under21);
+                printf("Player #%d is LOSS! Player #%d losses money: $%d !\n", i, i, player[i].stake*betting_odds_under21);
+                // printf("Player #%d losses money: $%d !\n", i, player[i].stake*betting_odds_under21);
                 player[i].purse = player[i].purse - player[i].stake*betting_odds_under21;
             }
-            // //玩家點數小於莊家點數，以
+            // //玩家點數小於莊家點數
             // else if (player[i].sum < player[0].sum )
             // {
             //     printf("Player #%d is SAFE!\n", i);
@@ -182,11 +181,11 @@ int main(void){
         }
 
         // 7. Restart
-        printf("請問要再來一局嗎:(Y/N)");
+        printf("\n請問要再來一局嗎(Y/N):");
         scanf(" %c", &YN);
         while (YN == 'n' | YN == 'N'){
             restart = 0;
-            printf("Game Over!!!\n");
+            printf("\nGame Over!!!\n\n");
 
             for (int i = 0; i < player_n+1; i++){
                 printf("\tPlayer %d,now your wallet have money : $%d \n", i, player[i].purse);
