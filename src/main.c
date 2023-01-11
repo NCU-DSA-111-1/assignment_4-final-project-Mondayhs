@@ -69,6 +69,12 @@ int main(void){
             for (int i = 0; i < player_n+1; i++){
                 printf("\tPlayer %d,please enter how many money do you have: ",i);
                 scanf("%d", &(player[i].purse));
+                //錢包的錢不能為負數
+                while ((player[i].purse < 0) == 1)
+                {
+                    printf("\tPurse shall be a positive number! Player %d,please enter how many money do you have: ",i);
+                    scanf("%d", &(player[i].purse));
+                }
             }
             flag = 0;
         }
@@ -86,6 +92,14 @@ int main(void){
             player[i].sum = 0;
             printf("\tPlayer #%d, Please enter how much money you want to bet: ",i);
             scanf("%d", &(player[i].stake));
+
+            //下注的錢不能超過錢包的錢
+            while( (player[i].stake > player[i].purse)  == 1)
+            {   
+                printf("\tStake shall not exceed your wallet! Player #%d, Please enter how much money you want to bet: ",i);
+                scanf("%d", &(player[i].stake)); 
+            }
+            
         }
 
         // 2. Fill n-set of Poker cards & shuffle cards.
@@ -170,8 +184,8 @@ int main(void){
             {
                 printf("Something Wrong!!!");
             }
+        // Do you want to play another game?          
             player[0].purse = player[0].purse - player[0].stake*betting_odds_under21;
-            
         }
 
         // 7. Restart
@@ -182,7 +196,7 @@ int main(void){
             printf("\nGame Over!!!\n\n");
 
             for (int i = 0; i < player_n+1; i++){
-                printf("\tPlayer %d,now your wallet have money : $%d \n", i, player[i].purse);
+                printf("\tPlayer %d,now the money in your wallet is : $%d \n", i, player[i].purse);
             }
             exit(1);
         }
