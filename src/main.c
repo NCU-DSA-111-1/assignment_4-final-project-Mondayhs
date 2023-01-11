@@ -191,9 +191,6 @@ int main(void){
     free(deck);
     return 0;
 }
-    
-        //free memory
-        // free(deck);
 
 
 
