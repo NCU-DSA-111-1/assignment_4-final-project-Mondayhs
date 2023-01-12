@@ -1,5 +1,5 @@
-# Final Project. 
-## BLACKJACK
+# Final Project. (BLACKJACK)
+
 
 ## Introduction
 
