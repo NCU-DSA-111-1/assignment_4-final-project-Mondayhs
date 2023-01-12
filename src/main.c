@@ -179,7 +179,7 @@ int main(void){
 
             }
             //玩家點數大於21點且莊家點數小於21點，或玩家點數小於莊家點數，輸以及賠錢
-            else if ((player[i].sum > 21 & player[0].sum < 21) | (player[i].sum < player[0].sum))
+            else if ((player[i].sum > 21 & player[0].sum <=21) | (player[i].sum < player[0].sum))
             {
                 printf("Player #%d is LOSS! Player #%d losses money: $%2.2f !\n", i, i, player[i].stake*betting_odds_over21);
                 // printf("Player #%d losses money: $%d !\n", i, player[i].stake*betting_odds_under21);
