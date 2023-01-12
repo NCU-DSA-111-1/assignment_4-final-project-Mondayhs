@@ -4,6 +4,8 @@
 
 #include "poker.h"
 #include <stdbool.h>
+#define RUNNING 1
+
 static char *FACE[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K"};
 static char *SUIT[] = {"H", "D", "C", "S"};
 
@@ -49,7 +51,7 @@ int main(void){
     printf("\tPlease specify how many players for this Poker-21: \t");
     scanf("%d", &player_n);
     Poker21 *player = malloc((player_n + 1) * sizeof(Poker21));
-    while(restart)
+    while(restart)      // define stats
     {
         printf("\tPlease specify how may set of cards to play: \t");
         scanf("%d", &n);

@@ -1,6 +1,6 @@
 #include "poker.h"
 
-static char *FACE[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K"};
+char *FACE[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K"};
 // static char *SUIT[] = {"H", "D", "C", "S"};a
 
 void fillDeck_n(Card *deck, char *face[], char *suit[], int n)
