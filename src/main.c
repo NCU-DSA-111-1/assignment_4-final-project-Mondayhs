@@ -51,7 +51,7 @@ int main(void){
     printf("\tPlease specify how many players for this Poker-21: \t");
     scanf("%d", &player_n);
     Poker21 *player = malloc((player_n + 1) * sizeof(Poker21));
-    while(restart)      // define stats
+    while(restart == RUNNING)      // define stats
     {
         printf("\tPlease specify how may set of cards to play: \t");
         scanf("%d", &n);
@@ -208,7 +208,7 @@ int main(void){
                 for (int i = 0; i < player_n+1; i++){
                     printf("\tPlayer %d,now the money in your wallet is : $%2.2f \n", i, player[i].purse);
                 }
-                exit(1);
+                exit(0);
             }
             
         }
